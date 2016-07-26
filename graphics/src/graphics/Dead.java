@@ -3,16 +3,14 @@
 //the death screen, with the score, and button options
 package graphics;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -20,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class DeathScreen {
+public class Dead {
 	private class CloseListener implements ActionListener{
 
 		@Override
@@ -30,13 +28,17 @@ public class DeathScreen {
 	}
 	
 	public JPanel createDeathScreen(){
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		
-		Font font = new Font("DEFAULT", Font.PLAIN, 20);
 		try{
-			font = Font.createFont(Font.TRUETYPE_FONT, new File("TINYBBA_.TTF"));
-		} catch (IOException|FontFormatException e) {
-		     System.out.println("Font not properly loaded");
+			
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("TINYBBA_.TFF")));
+			
+		}catch (Exception e){
+			e.printStackTrace();
 		}
+		
+		Font font = new Font("Tiny BoxBitA10", Font.PLAIN, 50);
 		
 		final int WIDTH = 250;
 		final int HEIGHT = 75;
@@ -62,6 +64,7 @@ public class DeathScreen {
 		});
 		
 		JButton menu = new JButton("Menu");
+		menu.setFont(font);
 		menu.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		menu.setBorder(BorderFactory.createRaisedBevelBorder());
 		menu.setBackground(Color.BLUE);
@@ -75,6 +78,7 @@ public class DeathScreen {
 		});
 	
 		JButton quit = new JButton("Quit");
+		quit.setFont(font);
 		quit.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		quit.setBorder(BorderFactory.createRaisedBevelBorder());
 		quit.setBackground(Color.GREEN);
@@ -118,18 +122,21 @@ public class DeathScreen {
 		buttonSide.add(quit);
 	
 		JLabel hs = new JLabel("High Score");
+		hs.setFont(font);
 		hs.setHorizontalAlignment(SwingConstants.CENTER);
 		hs.setOpaque(true);
 		hs.setBackground(Color.BLUE);
 		scoreSide.add(hs);
 	
 		JLabel sc = new JLabel("" + DEFAULT_SCORE);
+		sc.setFont(font);
 		sc.setHorizontalAlignment(SwingConstants.CENTER);
 		sc.setOpaque(true);
 		sc.setBackground(Color.GREEN);
 		scoreSide.add(sc);
 		
 		JButton textAdv = new JButton("???");
+		textAdv.setFont(font);
 		textAdv.setBorder(BorderFactory.createRaisedBevelBorder());
 		textAdv.setHorizontalAlignment(SwingConstants.CENTER);
 		textAdv.setOpaque(true);
@@ -149,3 +156,4 @@ public class DeathScreen {
 		return holder;
 	}
 }
+
